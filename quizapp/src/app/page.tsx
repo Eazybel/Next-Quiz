@@ -1,8 +1,8 @@
-
+import CategoryNav from "@/app/components/CategoryNav/CategoryNav"
 export default function Home() {
   return (
     <div>
-      <h1>Hello next</h1>
+      <CategoryNav/>
     </div>
   );
 }

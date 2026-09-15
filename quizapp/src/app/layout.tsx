@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
+import HeaderHome from "@/app/components/HeaderHome/HeaderHome"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,7 +13,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
      
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <HeaderHome />
+        {children}
+        </body>
     </html>
   );
 }

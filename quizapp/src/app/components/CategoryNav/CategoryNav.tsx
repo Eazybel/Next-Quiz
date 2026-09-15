@@ -20,11 +20,11 @@ router.push(`/questions/${change}`)
         <form onSubmit={clickHandler}>
         {
             props.text.map((inputs:string,index:number)=>{
-                return <>
-                <label key={index} htmlFor={inputs}>{inputs}</label>   
-                <input key={inputs} onChange={changeHandler} name="category" type="radio" value={inputs} /><br />
+                return <div key={index}>
+                <label htmlFor={inputs}>{inputs}</label>   
+                <input  onChange={changeHandler} name="category" type="radio" value={inputs} /><br />
 
-                        </>
+                        </div>
             })
         }
         <button type="submit">Submit</button>

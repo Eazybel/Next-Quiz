@@ -1,19 +1,33 @@
+"use client"
+
+type textProps={
+   text:string[]
+}
 import React from "react";
+
 import {useState} from "react"
-export default function CategoryNav(){
+import {useRouter} from "next/navigation"
+export default function CategoryNav(props:textProps){
+    const router=useRouter()
     const [change,setChange] = useState("")
     const handleChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
 setChange(e.target.value)
     }
     const clickHandler=(e:React.FormEvent)=>{
-console.log(change)
+        e.preventDefault()
+        console.log(change)
+router.push(`Questions/${change}`)
     }
     return(
         <form action="">
-            <input onChange={handleChange} type="radio" name="categoryy" id="chemistry" >chemistry</input>
-            <input onChange={handleChange} type="radio" name="categoryy" id="biology" >biology</input>
-            <input onChange={handleChange} type="radio" name="categoryy" id="history" >history</input>
-            <input onChange={handleChange} type="radio" name="categoryy" id="math" >math</input>
+            {
+                props.text.map((inputs:string,index:number)=>{
+                    return <>
+                    <label key={index} htmlFor={inputs}>{inputs}</label>
+                    <input value={inputs} onChange={handleChange} key={inputs} type="radio" name="category" id={`${inputs}`} placeholder={inputs}/>
+                    </>
+                })
+            }
             <button onClick={clickHandler} type="submit">Submit</button>
         </form>
     )

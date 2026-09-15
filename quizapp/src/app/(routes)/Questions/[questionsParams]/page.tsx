@@ -1,10 +1,11 @@
-type QuestionParams={
-    questionsParams:string
+type QuestionsProp={
+    params:Promise<{questionsParams:string}>
 }
-export default function Question(params:QuestionParams){
-    return (
+export default async function Question({params}:QuestionsProp){
+    const questionType=await params
+    return(
         <>
-        <h1>Welcome to {params.questionsParams} question</h1>
+        <h1>this is {questionType.questionsParams} question</h1>
         </>
     )
 }

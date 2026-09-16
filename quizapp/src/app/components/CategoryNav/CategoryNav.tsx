@@ -10,18 +10,20 @@ const router=useRouter()
 const [level,setLevel]=useState("string")
 const [isOpen,setOpen]=useState(false)
 const [course,setCourse]=useState("")
-const [category,setCategory]=useQueryState("category",{defaultValue:""})
+const [category,setCategory]=useQueryState("category")
+const [difficulty,setDiffifulty]=useQueryState("difficulty")
 const courseChangeHandler=(e:React.ChangeEvent<HTMLInputElement>)=>{
-setCategory(e.target.value)
-setCourse(e.target.value)
+    setCategory(e.target.value)
+    setCourse(e.target.value)
 }
 const levelChangeHandler=(e:React.ChangeEvent<HTMLInputElement>)=>{
-
+    setDiffifulty(e.target.value)
 setLevel(e.target.value)
 }
 const clickHandler=(e:React.SubmitEvent)=>{
 e.preventDefault()
 setOpen(true)
+router.push(`/questions/{category}/${difficulty}`)
 }
 const closeHandler=()=>{
     setOpen(false)

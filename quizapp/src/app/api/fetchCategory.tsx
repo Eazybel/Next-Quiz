@@ -1,10 +1,12 @@
 "use client"
 import React, {useState,useEffect} from "react"
+import {useRouter} from "next/navigation"
 type Category={
     name:string
 }
 
 export default function FetchCategory(){
+    const router=useRouter()
     const [category,setCategory]=useState<Category[]>([])
     const [isLoading,setLoad]=useState(true)
     const [error,setError]=useState<string|null>()
@@ -22,7 +24,7 @@ export default function FetchCategory(){
     }
     const clickHandler=(e:React.SubmitEvent<HTMLFormElement>)=>{
                 e.preventDefault()
-         console.log(level,categoryType)
+         router.push(`/questions/${categoryType}/${level}`)
     }
     useEffect(()=>{
     fetch("https://quizapi.io/api/v1/categories")

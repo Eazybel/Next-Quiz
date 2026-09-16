@@ -11,13 +11,18 @@ export default function FetchCategory(){
     const [categoryType,setCategoryType]=useState("")
     const [level,setLevel]=useState("")
     const [isOpen,setOpen]=useState(false)
-    const changeHandlerCategory=(e:React.SubmitEvent<HTMLFormElement>)=>{
+    const changeHandlerCategory=(e:React.ChangeEvent<HTMLFormElement>)=>{
         setCategoryType(e.target.value)
         setOpen(true)
     }
-    const changeHandlerLevel=(e:React.SubmitEvent<HTMLFormElement>)=>{
+    const changeHandlerLevel=(e:React.ChangeEvent<HTMLFormElement>)=>{
+
             setLevel(e.target.value)
-            console.log(level,categoryType)
+           
+    }
+    const clickHandler=(e:React.SubmitEvent<HTMLFormElement>)=>{
+                e.preventDefault()
+         console.log(level,categoryType)
     }
     useEffect(()=>{
     fetch("https://quizapi.io/api/v1/categories")
@@ -49,7 +54,6 @@ export default function FetchCategory(){
                         
                     )
                })}
-               <button type="submit">Submit</button>
             </form>
             <br />
            
@@ -57,12 +61,12 @@ export default function FetchCategory(){
           
             }
             {
-                isOpen&& <form onChange={changeHandlerLevel}>
-                <label htmlFor="easy">easy</label><br />
-                <input required type="radio" name="level" id="easy" value="easy"/>
-                <label htmlFor="medium">medium</label><br />
-                <input required type="radio" name="level" id="medium" value="medium"/>
-                <label htmlFor="hard">hard</label><br />
+                isOpen&& <form onSubmit={clickHandler} onChange={changeHandlerLevel}>
+                <label htmlFor="easy">easy</label>
+                <input required type="radio" name="level" id="easy" value="easy"/><br/>
+                <label htmlFor="medium">medium</label>
+                <input required type="radio" name="level" id="medium" value="medium"/><br/>
+                <label htmlFor="hard">hard</label>
                 <input required type="radio" name="level" id="hard" value="hard"/>
                 <button type="submit">Submit</button>
             </form>

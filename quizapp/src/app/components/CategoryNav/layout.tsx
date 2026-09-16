@@ -1,0 +1,1 @@
+import {NuqsAdapter} from "nuqs/adapters/next/app"

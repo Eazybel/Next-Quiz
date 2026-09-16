@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import {NuqsAdapter} from "nuqs/adapters/next/app"
 import "./globals.css";
 import HeaderHome from "@/app/components/HeaderHome/HeaderHome"
 
@@ -15,7 +16,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <HeaderHome />
-        {children}
+        <NuqsAdapter>
+          {children}
+        </NuqsAdapter>
         </body>
     </html>
   );

@@ -1,13 +1,12 @@
-"use client"
-import {useParams} from "next/navigation"
+type paramsType={
+    params:Promise<{category:string,difficulty:string}>
+}
 
-
-export default function Question(){
-    const paramsItem=useParams<{category:string,difficulty:string}>()
-
+export default async function Question({params}:paramsType){
+   const {category,difficulty}=await params
     return(
         <>
-        <p>you selected {paramsItem.category} of {paramsItem.difficulty} level questions</p>
+        <p>you selected {category} of {difficulty} level questions</p>
 
         </>
     )

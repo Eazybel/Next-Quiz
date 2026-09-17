@@ -46,13 +46,12 @@ export default function FetchCategory(){
             <form onChange={changeHandlerCategory}>
                   {category&&category.map((categories,index)=>{
                  return (
-                 <>
-                    <div key={index}>
+                    <div key={categories.name}>
                     <label htmlFor={categories.name}>{categories.name}</label>
                     <input required key={index} type="radio" value={categories.name} name="category"/>
                     <br/>
                      </div>
-                        </>
+
                         
                     )
                })}

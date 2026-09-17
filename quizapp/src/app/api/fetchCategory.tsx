@@ -15,15 +15,15 @@ export default function FetchCategory(){
     const [isOpen,setOpen]=useState(false)
     const changeHandlerCategory=(e:React.ChangeEvent<HTMLFormElement>)=>{
         setCategoryType(e.target.value)
+        localStorage.setItem("category",JSON.stringify(category.filter(name=>{return name.name===e.target.value})))
         setOpen(true)
     }
     const changeHandlerLevel=(e:React.ChangeEvent<HTMLFormElement>)=>{
-
             setLevel(e.target.value)
-           
-    }
+    }       
     const clickHandler=(e:React.SubmitEvent<HTMLFormElement>)=>{
                 e.preventDefault()
+                
          router.push(`/questions/${categoryType}/${level}`)
     }
     useEffect(()=>{
@@ -43,6 +43,7 @@ export default function FetchCategory(){
             <>
             {isLoading&&<p>Loading</p>}
             {category&&<>
+            
             <form onChange={changeHandlerCategory}>
                   {category&&category.map((categories,index)=>{
                  return (

@@ -21,8 +21,8 @@ return(
        <>
        {
         fetchedData.map((questions:QuestionsType,index:number)=>{
-                return <div key={index+1}>
-                      <p>{index+1}</p><Question text={questions.text} key={index+1}/>
+                return <div key={index+1} className="flex">
+                      <h1>{index+1}</h1><Question text={questions.text} key={index+1}/>
                     </div>
 
             })

@@ -12,14 +12,6 @@ if(!res.ok){
     throw Error("Something went wwrong")
 }
 
-return(
-    <>
-    {
-       <div>
-       
-       </div>
-    }
-    </>
-)
+return(fetchedData)
 
 }

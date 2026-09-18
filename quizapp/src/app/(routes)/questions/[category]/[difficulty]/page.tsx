@@ -31,18 +31,20 @@ return(
                      <div key={index+1} className="flex">
                           <h1>{index+1}</h1><Question text={questions.text} key={index+1}/> 
                         </div>
-                        {
-                            questions.answers.map((choose:ChooseType,index:number)=>{
-                                    return (
-                                        
-                                        <div key={index}>
-                                            <Choose text={choose.text}/>
-                                        </div>
-                                        
-                                    )
-                            })
+                        
+                            <div>
+                               { questions.answers.map((choose:ChooseType,index:number)=>{
+                                        return (
+                                            
+                                            <div key={index}>
+                                                <Choose text={choose.text}/>
+                                            </div>
+                                            
+                                        )
+                                })}
+                            </div><br />
                             
-                        }
+                        
                  </div>
 
 

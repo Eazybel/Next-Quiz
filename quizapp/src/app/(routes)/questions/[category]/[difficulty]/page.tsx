@@ -1,7 +1,3 @@
-import Loading from "@/app/api/loading";
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
-
 type paramsType={
     params:Promise<{category:string,difficulty:string}>
 }
@@ -20,4 +16,4 @@ return(fetchedData)
 
 }
 
-
+@@

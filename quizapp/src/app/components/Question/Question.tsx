@@ -5,10 +5,8 @@ type Props = {
 
 export default function Question({text,key}: Props) {
   return (
-    <p>
-        {
-            text
-        }
-    </p>
+    <>
+        <p>{text}</p>
+    </>
   )
 }

@@ -5,6 +5,7 @@ type QuestionsType={
 text:string
 }
 import Question from '@/app/components/Question/Question'
+import { COMPILER_INDEXES } from 'next/constants';
 export default async function SingleTest({params}:paramsType){
 const paramsItem=await params
 const res =await fetch(`https://quizapi.io/api/v1/questions?category=${paramsItem.category}&difficulty=${paramsItem.difficulty}&type=MULTIPLE_CHOICE&limit=10&offset=0"`,{method:"Get",headers:{"Content-type":"application/json","Authorization":"Bearer qa_sk_84cb0450a91a0e65b7e4461ac4df9decb89b74d2"}
@@ -21,10 +22,7 @@ return(
        {
         fetchedData.map((questions:QuestionsType,index:number)=>{
                 return <div key={index+1}>
-                    <div >
-                        <p>{index+1}</p><Question text={questions.text} key={index}/>
-                    </div>
-                    <br />
+                      <p>{index+1}</p><Question text={questions.text} key={index+1}/>
                     </div>
 
             })

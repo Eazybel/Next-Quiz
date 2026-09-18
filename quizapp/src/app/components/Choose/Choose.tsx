@@ -1,13 +1,14 @@
-import React from 'react'
 
-type Props = {}
+type Props = {
+    text:string
+}
 
-export default function Choose({}: Props) {
+export default function Choose(props: Props) {
   return (
     <>
    <div>
-        <label htmlFor=""></label>
-        <input type="radio" name="" id="" />
+        <input type="radio" name="choose" id={props.text} />
+        <label htmlFor={props.text}>{props.text}</label>
    </div>
     </>
   )

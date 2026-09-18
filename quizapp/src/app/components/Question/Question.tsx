@@ -6,8 +6,8 @@ type Props = {
 export default function Question({text,key}: Props) {
   return (
     <>
-        <h2>{text}</h2><br /><br />
-        
+        <br /><h2>{text}</h2>
+
     </>
   )
 }

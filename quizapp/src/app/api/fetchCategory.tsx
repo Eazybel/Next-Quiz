@@ -9,7 +9,7 @@ type Category = {
 };
 
 const QUIZ_API_KEY =
-  process.env.NEXT_PUBLIC_QUIZ_API_KEY ?? "qa_sk_84cb0450a91a0e65b7e4461ac4df9decb89b74d2";
+  process.env.NEXT_PUBLIC_QUIZ_API_KEY ;
 
 const FALLBACK_CATEGORIES: Category[] = [
   { name: "JavaScript", slug: "javascript" },

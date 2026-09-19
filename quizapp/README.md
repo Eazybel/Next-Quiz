@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NextQuiz
 
-## Getting Started
+A modern quiz app built with Next.js and the QuizAPI. Users can choose a category and difficulty, then answer a 10-question round and see their score.
 
-First, run the development server:
+## Features
+
+- category-based quiz selection
+- difficulty selection
+- dynamic question loading from QuizAPI
+- modern dark UI
+- no login or registration flow
+
+## Tech stack
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+
+## Getting started
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Create a local environment file if you want to override the default API key:
+
+```bash
+cp .env.example .env.local
+```
+
+If you do not create a file, the app will fall back to the bundled demo key used for the project.
+
+Example `.env.local`:
+
+```bash
+QUIZ_API_KEY=your_quizapi_key_here
+```
+
+3. Run the app:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `src/app/page.tsx` — landing page
+- `src/app/api/fetchCategory.tsx` — category and difficulty selector
+- `src/app/(routes)/questions/[category]/[difficulty]/page.tsx` — quiz page
+- `src/app/components/QuizExperience/QuizExperience.tsx` — question rendering and score calculation
 
-## Learn More
+## Notes
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- The app uses the QuizAPI categories endpoint and flattens the nested group data into usable quiz categories.
+- The quiz page requests questions using the selected category slug and difficulty level.
+- The project intentionally removes authentication screens and keeps the app focused on quiz flow.

@@ -1,58 +1,108 @@
-import Question from '@/app/components/Question/Question'
-import Choose from '@/app/components/Choose/Choose'
-import SubmitForm from '@/app/components/Submit/Submit'
-type paramsType={
-    params:Promise<{category:string,difficulty:string}>
-}
-type QuestionsType={
-text:string
-answers:ChooseType[]
-}
-type ChooseType={
-    text:string,
-    id:string,
-    isCorrect:boolean
-}
-export default async function SingleTest({params}:paramsType){
-const paramsItem=await params
-const res =await fetch(`https://quizapi.io/api/v1/questions?category=${paramsItem.category}&difficulty=${paramsItem.difficulty}&type=MULTIPLE_CHOICE&limit=10&offset=0"`,{method:"Get",headers:{"Content-type":"application/json","Authorization":"Bearer qa_sk_84cb0450a91a0e65b7e4461ac4df9decb89b74d2"}
-    })
-const data=await res.json()
-const fetchedData=data.data
+import QuizExperience from "@/app/components/QuizExperience/QuizExperience";
 
-if(!res.ok){
-    throw Error("Something went wwrong")
+type ParamsType = {
+  params: Promise<{ category: string; difficulty: string }>;
+};
+
+function normalizeQuestion(item: any) {
+  const answerList = Array.isArray(item?.answers) ? item.answers : [];
+  const normalizedAnswers: Record<string, string> = {};
+  const normalizedCorrect: Record<string, string> = {};
+
+  answerList.forEach((answer: any, index: number) => {
+    const key = `answer_${String.fromCharCode(97 + index)}`;
+    const value = typeof answer === "string" ? answer : answer?.text ?? "";
+
+    normalizedAnswers[key] = value;
+
+    if (answer && typeof answer === "object" && answer.isCorrect) {
+      normalizedCorrect[`${key}_correct`] = "true";
+    }
+  });
+
+  const questionText = item?.text ?? item?.question ?? "Untitled question";
+
+  return {
+    id: item?.id ?? questionText,
+    question: questionText,
+    answers: normalizedAnswers,
+    correct_answers: normalizedCorrect,
+    multiple_correct_answers: item?.multiple_correct_answers ?? "false",
+  };
 }
 
-const handleClick=async(prevState:unknown,formData:FormData)=>{
-    "use server"
-   const inputs=Array.from(formData.entries())
+export default async function SingleTest({ params }: ParamsType) {
+  const paramsItem = await params;
+  const category = decodeURIComponent(paramsItem.category);
+  const difficulty = decodeURIComponent(paramsItem.difficulty);
 
-    return inputs
-}
-return(<>
- <div>
-     <SubmitForm action={handleClick}>
-         {fetchedData.map((questions:QuestionsType,index:number)=>{
-           return  <div key={index+1}>
-               <div  className="flex">
-                  <h1>{index+1}</h1><Question text={questions.text} key={index+1}/> 
-                    </div><br />
-                      <div>
-                        { questions.answers.map((choose:ChooseType,index2:number)=>{
-                          return (  
-                            <div key={index2}>
-                              <Choose question={`question-${index}`} text={choose.text}/>
-                                </div>    
-                                  )
-             })}
-                </div><br />                    
-          </div>
-                })}
-             </SubmitForm>
- </div>
-       
-   
-</>)
+  const apiKey =
+    process.env.QUIZ_API_KEY ?? "qa_sk_84cb0450a91a0e65b7e4461ac4df9decb89b74d2";
 
+  const queryString = new URLSearchParams({
+    category: category.toLowerCase(),
+    difficulty: difficulty.toLowerCase(),
+    type: "MULTIPLE_CHOICE",
+    limit: "10",
+    offset: "0",
+  });
+
+  let fetchedData: any[] = [];
+
+  try {
+    const res = await fetch(`https://quizapi.io/api/v1/questions?${queryString.toString()}`, {
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("Questions API failed");
+    }
+
+    const data = await res.json();
+    const rawQuestions = Array.isArray(data?.data) ? data.data : [];
+    fetchedData = rawQuestions.map(normalizeQuestion);
+  } catch {
+    fetchedData = [
+      {
+        id: "fallback-question-1",
+        question: "Which JavaScript keyword is used to declare a variable that cannot be reassigned?",
+        answers: {
+          answer_a: "let",
+          answer_b: "const",
+          answer_c: "var",
+          answer_d: "function",
+        },
+        correct_answers: {
+          answer_b_correct: "true",
+        },
+      },
+      {
+        id: "fallback-question-2",
+        question: "Which HTML tag is used to create a link?",
+        answers: {
+          answer_a: "<link>",
+          answer_b: "<a>",
+          answer_c: "<href>",
+          answer_d: "<url>",
+        },
+        correct_answers: {
+          answer_b_correct: "true",
+        },
+      },
+    ];
+  }
+
+  return (
+    <main className="min-h-[calc(100vh-80px)] bg-slate-950 px-4 py-10 sm:px-6 lg:px-8">
+      <QuizExperience
+        questions={fetchedData}
+        category={category}
+        difficulty={difficulty}
+      />
+    </main>
+  );
 }

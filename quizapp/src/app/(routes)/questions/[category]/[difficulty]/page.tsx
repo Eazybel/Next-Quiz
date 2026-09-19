@@ -1,6 +1,6 @@
 import Question from '@/app/components/Question/Question'
 import Choose from '@/app/components/Choose/Choose'
-import Submit from '@/app/components/Submit/Submit'
+import SubmitForm from '@/app/components/Submit/Submit'
 type paramsType={
     params:Promise<{category:string,difficulty:string}>
 }
@@ -23,26 +23,34 @@ const fetchedData=data.data
 if(!res.ok){
     throw Error("Something went wwrong")
 }
+const handleClick=async(formData:FormData)=>{
+    "use server"
+    const inputs=formData.get("question-1")
+    console.log(inputs)
+}
 return(<>
- {
-     fetchedData.map((questions:QuestionsType,index:number)=>{
-        return <div>
-            <div key={index+1} className="flex">
-                <h1>{index+1}</h1><Question text={questions.text} key={index+1}/> 
+ <div>
+     <SubmitForm action={handleClick}>
+         {fetchedData.map((questions:QuestionsType,index:number)=>{
+           return  <div key={index+1}>
+               <div  className="flex">
+                  <h1>{index+1}</h1><Question text={questions.text} key={index+1}/> 
                     </div><br />
-                        <div>
-                            { questions.answers.map((choose:ChooseType,index:number)=>{
-                                 return (  
-                                    <div key={index}>
-                                        <Choose text={choose.text}/>
-                                        </div>    
-                                        )
-                                })}
-                            </div><br />                    
-                 </div>
-            })
-       } 
-    <Submit/>     
+                      <div>
+                        { questions.answers.map((choose:ChooseType,index2:number)=>{
+                          return (  
+                            <div key={index2}>
+                              <Choose question={`question-${index}`} text={choose.text}/>
+                                </div>    
+                                  )
+             })}
+                </div><br />                    
+          </div>
+                })}
+             </SubmitForm>
+ </div>
+       
+   
 </>)
 
 }

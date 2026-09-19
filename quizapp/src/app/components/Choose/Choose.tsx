@@ -1,14 +1,15 @@
 
 type Props = {
-    text:string
+    text:string,
+    question:string
 }
 
 export default function Choose(props: Props) {
   return (
     <>
    <div>
-        <input type="radio" name="choose" id={props.text} />
-        <label htmlFor={props.text}>{props.text}</label>
+        <input required type="radio" name={props.question} id={props.question} />
+        <label htmlFor={props.question}>{props.text}</label>
    </div>
     </>
   )

@@ -2,6 +2,7 @@ import CategoryNav from "@/app/components/CategoryNav/CategoryNav";
 
 export default function Home() {
   return (
+    // main page
     <main className="min-h-[calc(100vh-80px)] bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.25),_transparent_30%),linear-gradient(180deg,_#020617_0%,_#0f172a_100%)]">
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr]">
@@ -10,7 +11,7 @@ export default function Home() {
               Challenge yourself
             </span>
             <h1 className="mt-5 text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Sharpen your brain with a premium quiz experience.
+              Sharpen your brain with a premium quiz experience .
             </h1>
             <p className="mt-4 max-w-xl text-base text-slate-300 sm:text-lg">
               Pick a category, choose your difficulty, and test your knowledge with fast, focused rounds built for learning and fun.

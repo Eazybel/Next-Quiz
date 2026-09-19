@@ -23,9 +23,10 @@ const fetchedData=data.data
 if(!res.ok){
     throw Error("Something went wwrong")
 }
+
 const handleClick=async(formData:FormData)=>{
     "use server"
-    const inputs=formData.get("question-1")
+   let inputs=Array.from(formData.entries())
     console.log(inputs)
 }
 return(<>

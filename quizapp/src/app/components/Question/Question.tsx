@@ -1,3 +1,4 @@
+"use client"
 type Props = {
     text:string,
     key:number

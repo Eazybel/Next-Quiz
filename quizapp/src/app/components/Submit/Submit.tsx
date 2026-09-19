@@ -1,5 +1,4 @@
-import { SubmitEventHandler } from "react";
-
+"use client"
 type Props = {
   children:React.ReactNode,
   action:(formData:FormData)=>void|Promise<void>

@@ -24,10 +24,11 @@ if(!res.ok){
     throw Error("Something went wwrong")
 }
 
-const handleClick=async(formData:FormData)=>{
+const handleClick=async(prevState:unknown,formData:FormData)=>{
     "use server"
-   let inputs=Array.from(formData.entries())
-    console.log(inputs)
+   const inputs=Array.from(formData.entries())
+
+    return inputs
 }
 return(<>
  <div>
